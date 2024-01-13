@@ -1,19 +1,14 @@
-def get_os_info():
-    try:
-        with open('/etc/os-release', 'r') as os_release_file:
-            os_info = {}
-            for line in os_release_file:
-                key, value = line.strip().split('=', 1)
-                os_info[key] = value.strip('"')
-            return os_info
-    except FileNotFoundError:
-        return None
+import platform
+
+
+def check_os():
+    system = platform.system()
 
 
 def greet_and_welcome(name):
     print(f"Hello {name}!")
 
-    os_info = get_os_info()
+    os_info = check_os()
     if os_info:
         os_name = os_info.get('PRETTY_NAME', 'Linux')
         print(f"Welcome to {os_name}, {name}!")
